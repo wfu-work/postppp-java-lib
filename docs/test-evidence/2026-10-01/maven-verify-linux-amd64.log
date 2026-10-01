@@ -1,0 +1,84 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.navfirst:postppp-java-lib >--------------------
+[INFO] Building postppp-java-lib 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ postppp-java-lib ---
+[INFO] Deleting /workspace/target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ postppp-java-lib ---
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] Copying 5 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ postppp-java-lib ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 14 source files with javac [debug release 20] to target/classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ postppp-java-lib ---
+[INFO] skip non existing resourceDirectory /workspace/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ postppp-java-lib ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 2 source files with javac [debug release 20] to target/test-classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ postppp-java-lib ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.navfirst.postppp.lib.PostpppInfoTests
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.540 s -- in com.navfirst.postppp.lib.PostpppInfoTests
+[INFO] Running com.navfirst.postppp.lib.PostpppJavaLibApplicationTests
+06:32:46.020 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.navfirst.postppp.lib.PostpppJavaLibApplicationTests]: PostpppJavaLibApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+06:32:46.181 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.navfirst.postppp.lib.PostpppJavaLibApplication for test class com.navfirst.postppp.lib.PostpppJavaLibApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.4)
+
+2026-10-01T06:32:46.718Z  INFO 88 --- [           main] c.n.p.l.PostpppJavaLibApplicationTests   : Starting PostpppJavaLibApplicationTests using Java 21.0.12.1 with PID 88 (started by root in /workspace)
+2026-10-01T06:32:46.719Z  INFO 88 --- [           main] c.n.p.l.PostpppJavaLibApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2026-10-01T06:32:47.982Z  INFO 88 --- [           main] c.n.p.l.PostpppJavaLibApplicationTests   : Started PostpppJavaLibApplicationTests in 1.655 seconds (process running for 4.2)
+WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.12/byte-buddy-agent-1.14.12.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.797 s -- in com.navfirst.postppp.lib.PostpppJavaLibApplicationTests
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ postppp-java-lib ---
+[INFO] Building jar: /workspace/target/postppp-java-lib-1.0.0.jar
+[INFO] 
+[INFO] --- spring-boot:3.2.4:repackage (repackage) @ postppp-java-lib ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  22.520 s
+[INFO] Finished at: 2026-10-01T06:32:50Z
+[INFO] ------------------------------------------------------------------------

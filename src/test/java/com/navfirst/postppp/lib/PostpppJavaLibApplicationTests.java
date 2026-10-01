@@ -1,8 +1,9 @@
 package com.navfirst.postppp.lib;
 
 import com.navfirst.postppp.lib.domains.PostpppResponse;
-import com.navfirst.postppp.lib.domains.PostpppResult;
 import com.navfirst.postppp.lib.library.PostpppInfo;
+import com.navfirst.postppp.lib.library.PostpppLibrary;
+import com.navfirst.postppp.lib.exceptions.PostpppException;
 import com.navfirst.postppp.lib.services.PostpppLibService;
 import com.navfirst.postppp.lib.utils.JsonUtils;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,9 @@ import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /** Native smoke test; the Go shared library currently supports Linux amd64. */
 @SpringBootTest
@@ -24,11 +28,11 @@ class PostpppJavaLibApplicationTests {
     @Test
     void getVersion() {
         String version = this.postpppLibService.getVersion();
-        System.out.println("版本号："+ version);
+        assertThat(version).isEqualTo("1.0");
     }
 
     @Test
-    void javaDefaultsMatchNativeInitializer() {
+    void unavailableLicenseReturnsErrorForRawAndTypedResponses() {
         PostpppInfo input = PostpppInfo.builder()
                 .year(2026).month(7).day(1)
                 .bia("/data/bias.BIA")
@@ -42,23 +46,51 @@ class PostpppJavaLibApplicationTests {
 
         String json = this.postpppLibService.solvePostppp(input, "/data/license.lic");
         JsonUtils.Response response = JsonUtils.parseResponse(json);
-        if (response.code() != 0) {
-            System.err.println(response.error());
-        }
-        if (response.result() != null) {
-            System.out.println(response.result());
-        }
+        assertThat(response.code()).isEqualTo(-1);
+        assertThat(response.error()).contains("许可证");
 
         PostpppResponse responseResult = this.postpppLibService.solvePostpppResponse(input, "/data/license.lic");
-        if (!responseResult.isSuccess()) {
-            System.err.printf("PPP failed (%d): %s%n", responseResult.getCode(), responseResult.getError());
-        }
-        PostpppResult result = responseResult.getResult();
-        if (result != null) {
-            System.out.println(result.getName());
-            System.out.println(result.getFinalXyz()[0]);
-            System.out.println(result.getEpoch().size());
-        }
+        assertThat(responseResult.isSuccess()).isFalse();
+        assertThat(responseResult.getCode()).isEqualTo(-1);
+        assertThat(responseResult.getError()).contains("许可证");
+        assertThat(responseResult.getResult()).isNull();
+    }
+
+    @Test
+    void javaDefaultsMatchNativeInitializer() {
+        PostpppInfo input = PostpppInfo.builder().year(2026).navsys(1).maxSigma(0).build();
+        input.setNavPaths("/data/nav.rnx");
+        input.setStationNameText("ABCD");
+        PostpppLibrary.INSTANCE.initPostpppInput(input);
+
+        PostpppInfo expected = PostpppInfo.defaults();
+        expected.write();
+        assertThat(input.getPointer().getByteArray(0, input.size()))
+                .containsExactly(expected.getPointer().getByteArray(0, expected.size()));
+    }
+
+    @Test
+    void jsonEntryPointReturnsGoErrorEnvelope() {
+        PostpppResponse response = this.postpppLibService.solvePostpppResponse("{}", null);
+        assertThat(response.getCode()).isEqualTo(-1);
+        assertThat(response.getError()).contains("观测文件不能为空");
+        assertThat(response.hasResult()).isFalse();
+    }
+
+    @Test
+    void structureEntryPointReturnsGoErrorEnvelope() {
+        PostpppResponse response = this.postpppLibService.solvePostpppResponse(PostpppInfo.defaults(), null);
+        assertThat(response.getCode()).isEqualTo(-1);
+        assertThat(response.getError()).contains("观测文件不能为空");
+        assertThat(response.hasResult()).isFalse();
+    }
+
+    @Test
+    void resultFacadePreservesNativeErrorCode() {
+        assertThatThrownBy(() -> this.postpppLibService.solvePostpppResult("{}", null))
+                .isInstanceOfSatisfying(PostpppException.class,
+                        error -> assertThat(error.getCode()).isEqualTo("-1"))
+                .hasMessageContaining("观测文件不能为空");
     }
 
 }

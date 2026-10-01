@@ -1,0 +1,11 @@
+{
+  "TEST-com.navfirst.postppp.lib.PostpppInfoTests.xml": "8fbe6df5552e9eb9b6e568398089d673ec5beb421d476b0c44af341aadd43c17",
+  "TEST-com.navfirst.postppp.lib.PostpppJavaLibApplicationTests.xml": "4386023bd50e53089869411e0bf4657d55a84037250cc16b35f537bf8863c326",
+  "com.navfirst.postppp.lib.PostpppInfoTests.txt": "dc1e7a11f97e80025b96ac5af6f6d7d36070c16ea05580e818e8506c9ab67a6b",
+  "com.navfirst.postppp.lib.PostpppJavaLibApplicationTests.txt": "135daf06256cb22a131ce155775a85dcc1e8da121739ed91b8815a36b08a0147",
+  "maven-test-linux-amd64.log": "975c21a6ecba6d883641f6e1c57f240dec9bad7fe6e4e2e73c8698489c88cbec",
+  "maven-verify-linux-amd64.log": "80f2ccb2b953a8ac280766ff5148931dbb043e621eb1b27f6f9c8fc815a77313",
+  "sha256.txt": "02cad3fb3b437bc5d41059aa97af1c4ce5077968c24f3c9cae840343aa234a13",
+  "source-baseline.json": "006dc1e8b19d0058532349199a48af67e1e2668ed5d8e172d46047165cca3326",
+  "summary.json": "fe4c73f843bdaef0203939c3a5e4075238d5d679c964e5092c2b42b59367c964"
+}

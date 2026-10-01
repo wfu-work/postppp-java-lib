@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.navfirst.postppp.lib.PostpppInfoTests" time="0.54" tests="6" errors="0" skipped="0" failures="0">
+  <testcase name="partialResultIsRetainedForNoSolutionResponse" classname="com.navfirst.postppp.lib.PostpppInfoTests" time="0.31" />
+  <testcase name="responseJsonIsDecodedIntoTypedResultObjects" classname="com.navfirst.postppp.lib.PostpppInfoTests" time="0.032" />
+  <testcase name="postpppInfoMatchesNativeLayoutAndDefaults" classname="com.navfirst.postppp.lib.PostpppInfoTests" time="0.072" />
+  <testcase name="builderRetainsUtf8PathsAndFixedArrayLengths" classname="com.navfirst.postppp.lib.PostpppInfoTests" time="0.029" />
+  <testcase name="responseEnvelopePreservesCodeErrorAndResult" classname="com.navfirst.postppp.lib.PostpppInfoTests" time="0.002" />
+  <testcase name="fixedWidthAndPathInputsRejectNativeStringViolations" classname="com.navfirst.postppp.lib.PostpppInfoTests" time="0.008" />
+</testsuite>

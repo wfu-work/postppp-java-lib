@@ -1,0 +1,132 @@
+{
+  "report_date": "2026-10-01",
+  "start_utc": "2026-10-01T06:32:24.063781+00:00",
+  "end_utc": "2026-10-01T06:32:51.027812+00:00",
+  "command": [
+    "docker",
+    "run",
+    "--rm",
+    "--platform",
+    "linux/amd64",
+    "-v",
+    "/Users/wfu/Documents/works/navfirst/code/libs/postppp-java-lib:/workspace",
+    "-v",
+    "/Users/wfu/.m2:/root/.m2",
+    "-w",
+    "/workspace",
+    "maven:3.9-eclipse-temurin-21",
+    "mvn",
+    "-B",
+    "-o",
+    "clean",
+    "verify"
+  ],
+  "git_head": "69e3223a0ff0452b35b0deebeaa2caca77335b93",
+  "image": "maven:3.9-eclipse-temurin-21",
+  "image_id": "sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320",
+  "runtime_os": "Linux",
+  "runtime_arch": "amd64",
+  "totals": {
+    "tests": 12,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "suites": [
+    {
+      "name": "com.navfirst.postppp.lib.PostpppInfoTests",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.54"
+    },
+    {
+      "name": "com.navfirst.postppp.lib.PostpppJavaLibApplicationTests",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "3.797"
+    }
+  ],
+  "cases": [
+    {
+      "class": "com.navfirst.postppp.lib.PostpppInfoTests",
+      "name": "partialResultIsRetainedForNoSolutionResponse",
+      "seconds": 0.31,
+      "status": "passed"
+    },
+    {
+      "class": "com.navfirst.postppp.lib.PostpppInfoTests",
+      "name": "responseJsonIsDecodedIntoTypedResultObjects",
+      "seconds": 0.032,
+      "status": "passed"
+    },
+    {
+      "class": "com.navfirst.postppp.lib.PostpppInfoTests",
+      "name": "postpppInfoMatchesNativeLayoutAndDefaults",
+      "seconds": 0.072,
+      "status": "passed"
+    },
+    {
+      "class": "com.navfirst.postppp.lib.PostpppInfoTests",
+      "name": "builderRetainsUtf8PathsAndFixedArrayLengths",
+      "seconds": 0.029,
+      "status": "passed"
+    },
+    {
+      "class": "com.navfirst.postppp.lib.PostpppInfoTests",
+      "name": "responseEnvelopePreservesCodeErrorAndResult",
+      "seconds": 0.002,
+      "status": "passed"
+    },
+    {
+      "class": "com.navfirst.postppp.lib.PostpppInfoTests",
+      "name": "fixedWidthAndPathInputsRejectNativeStringViolations",
+      "seconds": 0.008,
+      "status": "passed"
+    },
+    {
+      "class": "com.navfirst.postppp.lib.PostpppJavaLibApplicationTests",
+      "name": "javaDefaultsMatchNativeInitializer",
+      "seconds": 1.383,
+      "status": "passed"
+    },
+    {
+      "class": "com.navfirst.postppp.lib.PostpppJavaLibApplicationTests",
+      "name": "structureEntryPointReturnsGoErrorEnvelope",
+      "seconds": 0.022,
+      "status": "passed"
+    },
+    {
+      "class": "com.navfirst.postppp.lib.PostpppJavaLibApplicationTests",
+      "name": "unavailableLicenseReturnsErrorForRawAndTypedResponses",
+      "seconds": 0.017,
+      "status": "passed"
+    },
+    {
+      "class": "com.navfirst.postppp.lib.PostpppJavaLibApplicationTests",
+      "name": "resultFacadePreservesNativeErrorCode",
+      "seconds": 0.006,
+      "status": "passed"
+    },
+    {
+      "class": "com.navfirst.postppp.lib.PostpppJavaLibApplicationTests",
+      "name": "jsonEntryPointReturnsGoErrorEnvelope",
+      "seconds": 0.005,
+      "status": "passed"
+    },
+    {
+      "class": "com.navfirst.postppp.lib.PostpppJavaLibApplicationTests",
+      "name": "getVersion",
+      "seconds": 0.002,
+      "status": "passed"
+    }
+  ],
+  "native_sha256": "1b30df9419d26e350c819f659d9c8ecce9c251e372ed9f65c4c9bf4a09b9ee48",
+  "native_bytes": 4710480,
+  "jar_sha256": "cf04aba0a2ad6017b9935b8825127c48e040870acb6eb4f8597ab26934d048d4",
+  "jar_bytes": 7627112,
+  "scope": "Java SDK contract and native ABI smoke tests; no real PPP accuracy acceptance"
+}

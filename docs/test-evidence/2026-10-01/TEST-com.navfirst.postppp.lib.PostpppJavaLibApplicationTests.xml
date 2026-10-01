@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.navfirst.postppp.lib.PostpppJavaLibApplicationTests" time="3.797" tests="6" errors="0" skipped="0" failures="0">
+  <testcase name="javaDefaultsMatchNativeInitializer" classname="com.navfirst.postppp.lib.PostpppJavaLibApplicationTests" time="1.383">
+    <system-out>06:32:46.020 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.navfirst.postppp.lib.PostpppJavaLibApplicationTests]: PostpppJavaLibApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+06:32:46.181 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.navfirst.postppp.lib.PostpppJavaLibApplication for test class com.navfirst.postppp.lib.PostpppJavaLibApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.4)
+
+2026-10-01T06:32:46.718Z  INFO 88 --- [           main] c.n.p.l.PostpppJavaLibApplicationTests   : Starting PostpppJavaLibApplicationTests using Java 21.0.12.1 with PID 88 (started by root in /workspace)
+2026-10-01T06:32:46.719Z  INFO 88 --- [           main] c.n.p.l.PostpppJavaLibApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2026-10-01T06:32:47.982Z  INFO 88 --- [           main] c.n.p.l.PostpppJavaLibApplicationTests   : Started PostpppJavaLibApplicationTests in 1.655 seconds (process running for 4.2)
+</system-out>
+    <system-err>WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.12/byte-buddy-agent-1.14.12.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+</system-err>
+  </testcase>
+  <testcase name="structureEntryPointReturnsGoErrorEnvelope" classname="com.navfirst.postppp.lib.PostpppJavaLibApplicationTests" time="0.022" />
+  <testcase name="unavailableLicenseReturnsErrorForRawAndTypedResponses" classname="com.navfirst.postppp.lib.PostpppJavaLibApplicationTests" time="0.017" />
+  <testcase name="resultFacadePreservesNativeErrorCode" classname="com.navfirst.postppp.lib.PostpppJavaLibApplicationTests" time="0.006" />
+  <testcase name="jsonEntryPointReturnsGoErrorEnvelope" classname="com.navfirst.postppp.lib.PostpppJavaLibApplicationTests" time="0.005" />
+  <testcase name="getVersion" classname="com.navfirst.postppp.lib.PostpppJavaLibApplicationTests" time="0.002" />
+</testsuite>

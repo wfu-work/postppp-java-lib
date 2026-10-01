@@ -1,0 +1,19 @@
+{
+  "src/main/java/com/navfirst/postppp/lib/PostpppJavaLibApplication.java": "f8ae264db6f7326e4e6195426353be47c55795e2aa66bf924d4f04967acac11e",
+  "src/main/java/com/navfirst/postppp/lib/configurations/PostpppAutoConfiguration.java": "a4c4a058626b4e1ab76fac2407b02b9ee046a2a50f2a20595d68c86b5ffe314d",
+  "src/main/java/com/navfirst/postppp/lib/configurations/PostpppProperties.java": "4bc52b0d5778336e6d80f87c218344024e38274bc3b6a4dbf61b9b795c9cecff",
+  "src/main/java/com/navfirst/postppp/lib/domains/PostpppEpoch.java": "4c9c97da6b6525e7ea9df64451d18c2cc96a0b2c2db110f0c45180422fe617eb",
+  "src/main/java/com/navfirst/postppp/lib/domains/PostpppResponse.java": "e3b3a6b99c1e51f8a88cb9aef63fd82b03e6795860f5ed63f0607428e1a1cf54",
+  "src/main/java/com/navfirst/postppp/lib/domains/PostpppResult.java": "c09cc6c05e067a9f17d5e9f415a0691da728edaf57d0dda4a6d9c14f7f0d69cb",
+  "src/main/java/com/navfirst/postppp/lib/domains/PostpppTime.java": "3326d403922e6c46aae7c651c4e04f94f274e47bfe1adcda6e4e4ff6c4468894",
+  "src/main/java/com/navfirst/postppp/lib/exceptions/PostpppException.java": "da11e0ed61a9c52afa388ca36806680f578068339c38cd769aa09637fa86191c",
+  "src/main/java/com/navfirst/postppp/lib/library/MyStructure.java": "7e6128f7f490b8008ecbd39ae562b203097677510aa13ff72b952e7d0e399101",
+  "src/main/java/com/navfirst/postppp/lib/library/PostpppInfo.java": "c6a6adab82ceeaa0bd80b63095fdd42619c38258270edaf0c7ee0db44fbf0d15",
+  "src/main/java/com/navfirst/postppp/lib/library/PostpppLibrary.java": "58abe893adb30c7ba145f5665d0dd69694584f0df416bbfa19e4b26cb4677444",
+  "src/main/java/com/navfirst/postppp/lib/services/PostpppLibService.java": "5fc4f6d8c67473f18fcef756c641a0d590529ca4ad44bc1adeb26eccb4824a5b",
+  "src/main/java/com/navfirst/postppp/lib/services/impl/PostpppLibServiceImpl.java": "ad3d2aec030e7830a4dd9be6fe383565c90be75b3d765a28e45d5463fccbff2c",
+  "src/main/java/com/navfirst/postppp/lib/utils/JsonUtils.java": "aec4c608788f590bebc0401bbb48f5f22d8e3e7256a46b273ee8cc74efadb309",
+  "src/test/java/com/navfirst/postppp/lib/PostpppInfoTests.java": "e846904837b5cdbee8e93ee2532e20633acf734015ead67fa2bfe142c0006b5f",
+  "src/test/java/com/navfirst/postppp/lib/PostpppJavaLibApplicationTests.java": "bfcad7a6b5e556ab4b59ba1b8abf32599528244bfa32bf5c34904ba997315270",
+  "pom.xml": "596eff992a437347dbebccf40881465fe7b8d23aa3b75104d30cacd90303f38a"
+}

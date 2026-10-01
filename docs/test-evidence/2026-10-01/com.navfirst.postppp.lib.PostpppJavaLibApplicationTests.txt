@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.navfirst.postppp.lib.PostpppJavaLibApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.797 s -- in com.navfirst.postppp.lib.PostpppJavaLibApplicationTests

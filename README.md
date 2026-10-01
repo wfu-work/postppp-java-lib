@@ -259,6 +259,16 @@ JNA 以 `Postppp` 加载动态库，Linux x86-64 默认查找 JAR 中的 `linux-
 
 在 Go 项目运行 `make docker-build` 可重新生成 `build/linux/amd64/libPostppp.so` 与 `libPostppp.h`。二者来自同一构建；替换 Java 资源时需与该头文件核对结构体和导出符号。当前 Java 字段映射需要同时具有 `solvePostppp`（JSON）和 `solvePostpppStruct`（结构体）两个入口。
 
+## SDK 文档与测试报告
+
+- [PostPPP Java SDK 集成开发指南](docs/PostPPP-Java-SDK开发指南.pdf)（PDF）
+- [PostPPP Java SDK 集成开发指南](docs/PostPPP-Java-SDK开发指南.docx)（DOCX）
+- [PostPPP Java SDK 测试报告](docs/PostPPP-Java-SDK测试报告.pdf)（PDF）
+- [PostPPP Java SDK 测试报告](docs/PostPPP-Java-SDK测试报告.docx)（DOCX）
+- [PostPPP Java SDK 测试报告](docs/PostPPP-Java-SDK测试报告.md)（Markdown）
+
+测试报告对应的可复现证据归档在 [`docs/test-evidence/2026-10-01`](docs/test-evidence/2026-10-01)。Linux amd64 Docker 环境执行 `mvn -B -o clean verify` 的 12 项测试全部通过（0 failures、0 errors、0 skipped）。
+
 ## 验证与迁移
 
 普通测试验证结构体大小、默认值、UTF-8/定长数组与响应解析。原生集成测试只在 Linux amd64 运行，验证真实 `.so` 的版本、初始化器及两种入口的参数错误返回；在 macOS 上执行 `mvn clean verify` 会跳过这些集成测试。
