@@ -10,7 +10,7 @@ public interface PostpppLibService {
 
     String getVersion();
 
-    String startUuid();
+    String getUuid();
 
     /** Validate and cache a license in the native process. */
     String setLicense(String path);

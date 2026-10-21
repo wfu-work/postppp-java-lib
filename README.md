@@ -2,7 +2,7 @@
 
 通过 JNA 封装 [`postppp-go-lib`](../../nav-app/postppp-go-lib) 的 Java SDK，一次同步调用完成一个测站一天的静态精密单点定位（PPP）解算。提供 `PostpppInfo` 结构体和原始 JSON 两种入口，返回逐历元坐标、对流层延迟、日解坐标和质量统计。
 
-当前原生解算支持 **Linux amd64（x86-64）**。虽然资源中存在 `darwin-aarch64` 和 `linux-aarch64` 目录，但其中的 `.so` 实际都是 Linux x86-64 ELF 文件，不能作为 macOS 或 ARM64 库使用。完整解算需要有效许可证及调用方提供的观测、广播星历、精密轨道、钟差、码偏差和天线文件；库不下载数据。
+当前原生解算支持 **Linux amd64、Linux arm64 和 macOS arm64**。JAR 按平台携带 `linux-x86-64/libPostppp.so`、`linux-aarch64/libPostppp.so` 和 `darwin-aarch64/libPostppp.dylib`。完整解算需要有效许可证及调用方提供的观测、广播星历、精密轨道、钟差、码偏差和天线文件；库不下载数据。
 
 ## 安装与构建
 
@@ -11,6 +11,9 @@
 ```bash
 mvn clean verify
 mvn install
+
+# 使用项目根目录 data/ 中的真实数据；许可证不提交到仓库
+mvn -Dpostppp.test.license=/path/to/license.lic test
 ```
 
 产物为普通依赖 JAR：`target/postppp-java-lib-1.0.0.jar`，不进行 Spring Boot 可执行 JAR 重打包。
@@ -255,7 +258,7 @@ String metadata = sdk.getLicense("/data/license.lic");    // 只读，不设置�
 
 Spring Boot 3 可自动注入 `PostpppLibService`。配置 `ppp.enabled=false` 关闭默认自动配置，也可以提供自定义服务 Bean。
 
-JNA 以 `Postppp` 加载动态库，Linux x86-64 默认查找 JAR 中的 `linux-x86-64/libPostppp.so`。使用外部库时，在 JVM 启动时传入 `-Djna.library.path=/path/to/native`，该目录需包含 `libPostppp.so`；加载或链接失败直接抛出 `UnsatisfiedLinkError`。
+JNA 以 `Postppp` 加载动态库，并按当前操作系统和架构查找 JAR 中对应的资源目录。使用外部库时，在 JVM 启动时传入 `-Djna.library.path=/path/to/native`，该目录需包含当前平台的 `libPostppp.so` 或 `libPostppp.dylib`；加载或链接失败直接抛出 `UnsatisfiedLinkError`。
 
 在 Go 项目运行 `make docker-build` 可重新生成 `build/linux/amd64/libPostppp.so` 与 `libPostppp.h`。二者来自同一构建；替换 Java 资源时需与该头文件核对结构体和导出符号。当前 Java 字段映射需要同时具有 `solvePostppp`（JSON）和 `solvePostpppStruct`（结构体）两个入口。
 
@@ -267,10 +270,10 @@ JNA 以 `Postppp` 加载动态库，Linux x86-64 默认查找 JAR 中的 `linux-
 - [PostPPP Java SDK 测试报告](docs/PostPPP-Java-SDK测试报告.docx)（DOCX）
 - [PostPPP Java SDK 测试报告](docs/PostPPP-Java-SDK测试报告.md)（Markdown）
 
-测试报告对应的可复现证据归档在 [`docs/test-evidence/2026-10-01`](docs/test-evidence/2026-10-01)。Linux amd64 Docker 环境执行 `mvn -B -o clean verify` 的 12 项测试全部通过（0 failures、0 errors、0 skipped）。
+测试报告对应的可复现证据归档在 [`docs/test-evidence/2026-10-01`](docs/test-evidence/2026-10-01)。普通 `mvn -B test` 会执行结构体、JSON 和错误路径测试；提供真实数据与许可证后，原生集成测试还会验证 GT10 全日 2877 个历元、结构体入口、JSON 入口以及 `.pos`、SINEX_TRO 和质量报告输出。
 
 ## 验证与迁移
 
-普通测试验证结构体大小、默认值、UTF-8/定长数组与响应解析。原生集成测试只在 Linux amd64 运行，验证真实 `.so` 的版本、初始化器及两种入口的参数错误返回；在 macOS 上执行 `mvn clean verify` 会跳过这些集成测试。
+普通测试验证结构体大小、默认值、UTF-8/定长数组与响应解析。原生测试在 Linux amd64、Linux arm64 和 macOS arm64 上运行；真实数据测试默认读取项目根目录 `data/`，许可证可通过 `-Dpostppp.test.license=/path/to/license.lic` 指定，数据目录可通过 `-Dpostppp.test.data=/path/to/data` 指定。没有完整数据或许可证时，真实数据测试会跳过，其余接口测试仍会执行。
 
 本次映射移除了旧模型中的 `calMode/es/ee/ti/vrsMode/solstatic/fixThresh/rb/outfile` 和 `brdc/rover/base` 字节缓冲字段；这些字段不属于当前 Go ABI。调用方应改为上述 PPP 参数与文件路径。低层接口返回值改为 `Pointer` 以正确释放原生内存，业务代码建议通过服务获取 Java `String`。

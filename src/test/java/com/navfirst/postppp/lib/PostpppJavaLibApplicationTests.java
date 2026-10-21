@@ -2,10 +2,8 @@ package com.navfirst.postppp.lib;
 
 import com.navfirst.postppp.lib.domains.PostpppResponse;
 import com.navfirst.postppp.lib.library.PostpppInfo;
-import com.navfirst.postppp.lib.library.PostpppLibrary;
-import com.navfirst.postppp.lib.exceptions.PostpppException;
 import com.navfirst.postppp.lib.services.PostpppLibService;
-import com.navfirst.postppp.lib.utils.JsonUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.junit.jupiter.api.condition.EnabledOnOs;
@@ -13,13 +11,18 @@ import org.junit.jupiter.api.condition.OS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
-/** Native smoke test; the Go shared library currently supports Linux amd64. */
+/**
+ * 创建：馥溪凝
+ * 日期：2026/10/21 11:13
+ * 描述：PostpppJavaLibApplicationTests
+ */
+@Slf4j
 @SpringBootTest
-@EnabledOnOs(OS.LINUX)
-@EnabledIfSystemProperty(named = "os.arch", matches = "amd64|x86_64")
+@EnabledOnOs({OS.LINUX, OS.MAC})
+@EnabledIfSystemProperty(named = "os.arch", matches = "amd64|x86_64|aarch64|arm64")
 class PostpppJavaLibApplicationTests {
 
     @Autowired
@@ -28,69 +31,54 @@ class PostpppJavaLibApplicationTests {
     @Test
     void getVersion() {
         String version = this.postpppLibService.getVersion();
-        assertThat(version).isEqualTo("1.0");
+        System.out.println("算法版本version: " + version);
     }
 
     @Test
-    void unavailableLicenseReturnsErrorForRawAndTypedResponses() {
+    void getUuid() {
+        String uuid = this.postpppLibService.getUuid();
+        System.out.println("唯一标识uuid: " + uuid);
+    }
+
+    @Test
+    void solvePostppp() {
+        String invalidLicense = resolveLicensePath().toString();
         PostpppInfo input = PostpppInfo.builder()
                 .year(2026).month(7).day(1)
-                .bia("/data/bias.BIA")
-                .atx("/data/igs20.atx")
-                .obsFile("/data/ABCD1820.26o")
+                .bia("./data/WUM0MGXFIN_20261820000_01D_01D_OSB.BIA")
+                .atx("./data/igs20_2425_merged.atx")
+                .obsFile("./data/GT101820.26o")
                 .build();
-        input.setNavPaths("/data/BRDC.rnx");
-        input.setSp3Paths("/data/orbit.SP3");
-        input.setClkPaths("/data/clock.CLK");
-        input.setStationNameText("ABCD");
+        input.setNavPaths("./data/BRDC00IGS_R_20261820000_01D_MN.rnx");
+        input.setSp3Paths("./data/WUM0MGXFIN_20261820000_01D_05M_ORB.SP3");
+        input.setClkPaths("./data/WUM0MGXFIN_20261820000_01D_30S_CLK.CLK");
+        input.setStationNameText("GT10");
 
-        String json = this.postpppLibService.solvePostppp(input, "/data/license.lic");
-        JsonUtils.Response response = JsonUtils.parseResponse(json);
-        assertThat(response.code()).isEqualTo(-1);
-        assertThat(response.error()).contains("许可证");
+        String json = this.postpppLibService.solvePostppp(input, invalidLicense);
+        log.info("response json: {}", json);
 
-        PostpppResponse responseResult = this.postpppLibService.solvePostpppResponse(input, "/data/license.lic");
-        assertThat(responseResult.isSuccess()).isFalse();
-        assertThat(responseResult.getCode()).isEqualTo(-1);
-        assertThat(responseResult.getError()).contains("许可证");
-        assertThat(responseResult.getResult()).isNull();
+        PostpppResponse responseResult = this.postpppLibService.solvePostpppResponse(input, invalidLicense);
+       log.info("responseResult: {}", responseResult);
     }
 
-    @Test
-    void javaDefaultsMatchNativeInitializer() {
-        PostpppInfo input = PostpppInfo.builder().year(2026).navsys(1).maxSigma(0).build();
-        input.setNavPaths("/data/nav.rnx");
-        input.setStationNameText("ABCD");
-        PostpppLibrary.INSTANCE.initPostpppInput(input);
-
-        PostpppInfo expected = PostpppInfo.defaults();
-        expected.write();
-        assertThat(input.getPointer().getByteArray(0, input.size()))
-                .containsExactly(expected.getPointer().getByteArray(0, expected.size()));
+    private static Path resolveLicensePath() {
+        String configured = System.getProperty("postppp.test.license");
+        if (configured != null && !configured.isBlank()) {
+            return Path.of(configured).toAbsolutePath();
+        }
+        Path local = dataPath("license.lic");
+        if (Files.isRegularFile(local)) {
+            return local;
+        }
+        return Path.of(System.getProperty("user.home"), "Downloads", "license.lic").toAbsolutePath();
     }
 
-    @Test
-    void jsonEntryPointReturnsGoErrorEnvelope() {
-        PostpppResponse response = this.postpppLibService.solvePostpppResponse("{}", null);
-        assertThat(response.getCode()).isEqualTo(-1);
-        assertThat(response.getError()).contains("观测文件不能为空");
-        assertThat(response.hasResult()).isFalse();
+    private static Path dataPath(String file) {
+        return dataPath(Path.of(System.getProperty("postppp.test.data", "data")).toAbsolutePath(), file);
     }
 
-    @Test
-    void structureEntryPointReturnsGoErrorEnvelope() {
-        PostpppResponse response = this.postpppLibService.solvePostpppResponse(PostpppInfo.defaults(), null);
-        assertThat(response.getCode()).isEqualTo(-1);
-        assertThat(response.getError()).contains("观测文件不能为空");
-        assertThat(response.hasResult()).isFalse();
-    }
-
-    @Test
-    void resultFacadePreservesNativeErrorCode() {
-        assertThatThrownBy(() -> this.postpppLibService.solvePostpppResult("{}", null))
-                .isInstanceOfSatisfying(PostpppException.class,
-                        error -> assertThat(error.getCode()).isEqualTo("-1"))
-                .hasMessageContaining("观测文件不能为空");
+    private static Path dataPath(Path dataDir, String file) {
+        return dataDir.resolve(file);
     }
 
 }

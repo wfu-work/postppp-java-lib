@@ -20,7 +20,7 @@ public class PostpppLibServiceImpl implements PostpppLibService {
     }
 
     @Override
-    public String startUuid() {
+    public String getUuid() {
         return readAndFree(this.postpppLibrary.getUuid());
     }
 
